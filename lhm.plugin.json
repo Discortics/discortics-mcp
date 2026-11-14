@@ -1,0 +1,20 @@
+{
+  "identifier": "discortics",
+  "name": "Discortics - Discord Bot",
+  "description": "Architect, configure, and automate Discord servers, channels, permissions, roles, verification gates, tickets, and security shields via MCP.",
+  "version": "1.0.0",
+  "category": "developer",
+  "author": "Discortics",
+  "authorUrl": "https://github.com/discortics",
+  "homepage": "https://discortics.com",
+  "cloudEndpoint": "https://api.discortics.com/mcp",
+  "tags": [
+    "discord",
+    "bot",
+    "server-management",
+    "automation",
+    "moderation",
+    "mcp"
+  ],
+  "icon": "🤖"
+}

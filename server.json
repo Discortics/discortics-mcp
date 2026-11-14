@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.discortics/discortics",
+  "title": "Discortics - Discord Server Architect",
+  "description": "Architect, configure, and automate Discord servers, channels, permissions, roles, verification gates, tickets, and security shields via the Model Context Protocol.",
+  "repository": {
+    "url": "https://github.com/Discortics/discortics-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.discortics.com/mcp"
+    }
+  ]
+}
