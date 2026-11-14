@@ -1,0 +1,14 @@
+{
+  "name": "discortics",
+  "version": "1.0.0",
+  "description": "Architect, configure, theme, and automate Discord servers, channels, permissions, roles, verification gates, tickets, and security shields via the Model Context Protocol.",
+  "author": "Discortics",
+  "homepage": "https://discortics.com",
+  "mcpServers": {
+    "discortics": {
+      "description": "Official Discortics remote MCP server for Discord server management",
+      "httpUrl": "https://api.discortics.com/mcp"
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}

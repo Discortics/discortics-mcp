@@ -117,7 +117,17 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
 
 ---
 
-### 5. LobeHub / LobeChat
+### 5. Gemini CLI
+
+Install the extension directly into Gemini CLI:
+
+```bash
+gemini extensions install Discortics/discortics-mcp
+```
+
+---
+
+### 6. LobeHub / LobeChat
 
 In LobeChat, search for **Discortics** in the Marketplace or add a custom remote server:
 - **Server URL**: `https://api.discortics.com/mcp`
@@ -125,7 +135,7 @@ In LobeChat, search for **Discortics** in the Marketplace or add a custom remote
 
 ---
 
-### 6. Generic MCP Client (Streamable HTTP)
+### 7. Generic MCP Client (Streamable HTTP)
 
 * **Endpoint**: `https://api.discortics.com/mcp`
 * **Transport**: `Streamable HTTP` (POST JSON-RPC 2.0 + SSE streaming)
