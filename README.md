@@ -1,32 +1,73 @@
-# Discortics MCP Server
+<p align="center">
+  <img src="assets/logo.png" width="160" alt="Discortics MCP Logo"/>
+</p>
 
-Official Model Context Protocol (MCP) connector and agent skill bundle for [Discortics](https://discortics.com). Architect, configure, and automate Discord servers, channels, permissions, roles, verification gates, tickets, and security shields directly from your AI agent conversations.
+<h1 align="center">Discortics MCP Server</h1>
 
-[![Model Context Protocol](https://img.shields.io/badge/MCP-Streamable%20HTTP-green.svg)](https://modelcontextprotocol.io)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](https://discortics.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+<p align="center">
+  <b>The Model Context Protocol (MCP) server for Discord.</b><br/>
+  Architect, configure, theme, and automate Discord servers directly from your AI agent conversations.
+</p>
+
+<p align="center">
+  <a href="https://modelcontextprotocol.io"><img src="https://img.shields.io/badge/MCP-Streamable%20HTTP-22c55e.svg" alt="MCP Transport"/></a>
+  <a href="https://discortics.com"><img src="https://img.shields.io/badge/Status-Production%20Ready-3b82f6.svg" alt="Production Ready"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-amber.svg" alt="License"/></a>
+  <a href="https://discord.com"><img src="https://img.shields.io/badge/Platform-Discord-5865F2.svg?logo=discord&logoColor=white" alt="Discord"/></a>
+  <a href="https://discortics.com/invite"><img src="https://img.shields.io/badge/Bot-Invite%20Discortics-7289da.svg" alt="Invite Discortics"/></a>
+</p>
 
 ---
 
-## 🌟 Overview
+## 🌟 Why Discortics MCP?
 
-The **Discortics MCP Server** connects AI models (Claude, Cursor, Grok, ChatGPT, Codex, LobeChat) directly to the Discortics orchestration engine over remote **Streamable HTTP**.
+Instead of spending hours manually configuring roles, categories, channels, permissions, intake tickets, and verification gates, the **Discortics MCP Server** connects modern AI coding assistants and agents (**Claude**, **Cursor**, **Grok**, **ChatGPT**, **Windsurf**, **LobeChat**) directly to the Discord ecosystem.
 
-Whether starting a brand-new Discord server from a blank slate or upgrading an active community with 50,000+ members, Discortics enables AI agents to:
+Whether setting up a new server from scratch or non-destructively managing an active community with 50,000+ members:
 
-* **Synthesize Themed Communities**: Turn natural prompts (*"Cozy anime cafe"*, *"Cyberpunk esports clan"*, *"Open-source developer hub"*) into clean category trees, channel topics, unicode styling, and harmonic role palettes.
-* **Provision Discord Primitives**: Create categories, channels, cosmetic roles, and private staff lounges with least-privilege permission isolation.
-* **Orchestrate 20+ Modules**: Configure Verification gates, Support Tickets, Staff Applications, Button/Dropdown Self-Roles, Welcome/Leave onboarding, Starboards, Leveling, and Economy.
-* **Harden Server Security**: Audit settings and configure AntiNuke burst protection and automated AutoPilot spam/raid shields.
-* **Enforce Human-in-the-Loop Review**: No live mutations touch Discord without explicit human approval. Every architectural plan generates a cryptographic preview URL (`https://discortics.com/mcp/review/<id>`). The assistant summarizes all changes, presents the preview, and waits for text confirmation in chat before recording approval and applying changes. Zero automated administrator permissions are ever granted.
+- **Complete Thematic Architecture**: Turn natural prompts (*"Cozy anime cafe"*, *"Cyberpunk esports clan"*, *"Open-source dev community"*) into harmonized channel hierarchies, unicode styling, topic banners, and matching role palettes.
+- **Orchestrate 20+ Modules**: Configure Verification gates, Support Tickets, Staff Applications, Button/Dropdown Self-Roles, Welcome/Leave onboarding, Starboards, Leveling, and Economy.
+- **Security & Anti-Raid Shields**: Run deep security audits and deploy AntiNuke burst protection, link restrictions, and automated AutoPilot spam defenses.
+- **Human-in-the-Loop Safety**: Zero mutations occur without human approval. Every architectural plan generates an immutable preview URL (`https://discortics.com/mcp/review/<id>`). The agent summarizes the changes and waits for explicit chat confirmation before applying them. Zero automated Administrator roles are ever created.
+
+---
+
+## 🔄 How It Works
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User as Community Admin
+    participant AI as AI Agent (Cursor / Claude / Grok)
+    participant MCP as Discortics MCP Server (Go API)
+    participant Discord as Discord Server
+
+    User->>AI: "Create an esports community server with staff lounge and rank self-roles"
+    AI->>MCP: list_servers() & get_setup_context()
+    MCP-->>AI: Active roles, channels, bot hierarchy, and limits
+    AI->>AI: Synthesizes theme & compiles atomic step blueprint
+    AI->>MCP: propose_setup(steps)
+    MCP-->>AI: { proposalId, reviewUrl }
+    AI->>User: Displays blueprint + reviewUrl link in chat
+    Note over User,Discord: Discord remains untouched (Human-in-the-loop guarantee)
+    User->>AI: "Looks great, apply these changes!"
+    AI->>MCP: approve_setup_proposal(proposalId, expectedHash, userConfirmed: true)
+    MCP-->>AI: Proposal marked approved
+    AI->>MCP: apply_setup_proposal(proposalId)
+    MCP->>Discord: Executes role, category, channel, and module configurations
+    MCP-->>AI: Execution outcome receipt
+    AI->>User: "Server setup complete! Enjoy your new community."
+```
 
 ---
 
 ## 🚀 Quickstart & Client Setup
 
+The Discortics MCP Server runs over **Streamable HTTP** with **OAuth 2.0 PKCE** dynamic discovery. No local binaries or heavy runtimes are required.
+
 ### 1. Cursor
 
-Add the Discortics MCP server to your Cursor configuration (`~/.cursor/mcp.json` or `.cursor/mcp.json`):
+Add Discortics to your Cursor MCP settings (`~/.cursor/mcp.json` or project `.cursor/mcp.json`):
 
 ```json
 {
@@ -39,13 +80,11 @@ Add the Discortics MCP server to your Cursor configuration (`~/.cursor/mcp.json`
 }
 ```
 
-When you first prompt Cursor, it will initiate the Discord OAuth 2.0 PKCE flow to authorize your server.
-
 ---
 
 ### 2. Claude Code CLI
 
-Add the connector directly using the Claude CLI:
+Add the connector in one command:
 
 ```bash
 claude mcp add discortics https://api.discortics.com/mcp
@@ -53,29 +92,80 @@ claude mcp add discortics https://api.discortics.com/mcp
 
 ---
 
-### 3. Claude Desktop / Claude Connectors
+### 3. Claude Desktop
 
-1. Open **Claude Settings** → **Developer** (or **Connectors**).
+1. Open **Claude Settings** → **Connectors** (or **Developer**).
 2. Click **Add Connector**.
-3. Enter the server URL: `https://api.discortics.com/mcp`.
-4. Sign in with Discord to grant access to your test server.
+3. Set the Remote MCP URL to `https://api.discortics.com/mcp`.
+4. Sign in with Discord to grant access to your server.
 
 ---
 
-### 4. LobeHub / LobeChat
+### 4. Windsurf
 
-In LobeChat settings, install the **Discortics** plugin from the marketplace, or configure a custom remote MCP server pointing to:
-- **URL**: `https://api.discortics.com/mcp`
+Add to `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "discortics": {
+      "serverUrl": "https://api.discortics.com/mcp"
+    }
+  }
+}
+```
+
+---
+
+### 5. LobeHub / LobeChat
+
+In LobeChat, search for **Discortics** in the Marketplace or add a custom remote server:
+- **Server URL**: `https://api.discortics.com/mcp`
 - **Transport**: `Streamable HTTP`
 
 ---
 
-### 5. Generic MCP Client (Streamable HTTP)
+### 6. Generic MCP Client (Streamable HTTP)
 
-Point any conformant MCP client to:
 * **Endpoint**: `https://api.discortics.com/mcp`
 * **Transport**: `Streamable HTTP` (POST JSON-RPC 2.0 + SSE streaming)
-* **Auth**: RFC 9470 OAuth Protected Resource (`/.well-known/oauth-protected-resource/mcp`) with OAuth 2.0 PKCE.
+* **Auth**: RFC 9470 OAuth Protected Resource (`https://api.discortics.com/.well-known/oauth-protected-resource/mcp`)
+
+---
+
+## 💬 Prompt Gallery (Try These!)
+
+Once connected to your agent, try pasting any of these prompts:
+
+<details>
+<summary><b>🎮 Esports & Gaming Clan Setup</b></summary>
+
+> *"I want to set up an esports community server for our Valorant team called 'Team Phantom'. Create categories for info, general chat, and a private staff lounge. Add a welcome message in general chat and self-roles for rank selection."*
+</details>
+
+<details>
+<summary><b>📺 Twitch Streamer & Creator Hub</b></summary>
+
+> *"Configure my Discord server for my Twitch streaming community. Set up a starboard with a 5-star threshold, celebratory booster announcement messages, and an ideas suggestion channel."*
+</details>
+
+<details>
+<summary><b>🛠️ Open-Source Developer Support & Tickets</b></summary>
+
+> *"Set up our developer server with a support ticket panel for 'Bug Reports' and 'Contributor Applications', and restrict the ticket review channel to our Maintainer role."*
+</details>
+
+<details>
+<summary><b>🛡️ Security Audit & Raid Shield Hardening</b></summary>
+
+> *"Audit my server's security and enable strong AntiNuke protections and automated raid defenses."*
+</details>
+
+<details>
+<summary><b>⚡ Non-Destructive Incremental Upgrade</b></summary>
+
+> *"We already have an active server. Just add a new Self-Role panel for notification pings in our existing #announcements channel without touching any existing channels or roles."*
+</details>
 
 ---
 
@@ -89,29 +179,38 @@ Point any conformant MCP client to:
 | `get_feature_guide` | Read-only | Fetch operation schemas, questions, and parameter guides |
 | `read_configuration` | Read-only | Retrieve module settings for an authorized guild |
 | `audit_configuration` | Read-only | Batch-audit multiple server modules in a single call |
-| `propose_setup` | Draft | Create an atomic setup proposal and return a preview URL |
+| `propose_setup` | Draft (Safe) | Create an atomic setup proposal and return a cryptographic review preview URL |
 | `get_setup_proposal` | Read-only | Inspect step status and outcomes of a stored proposal |
 | `approve_setup_proposal` | Confirmation | Record explicit chat confirmation for the exact proposal hash |
 | `apply_setup_proposal` | Execution | Execute approved configuration steps in Discord |
 
 ---
 
-## 🧠 Agent Skills
+## 🧠 Master Agent Skill Included
 
-This repository bundles the master **`discord-server-architect`** skill inside [`skills/discord-server-architect/`](skills/discord-server-architect/):
+This repository packages the authoritative **`discord-server-architect`** skill located at [`skills/discord-server-architect/`](skills/discord-server-architect/):
 
-* **Blueprint Synthesis**: Translates natural theme requests into atomic configuration steps.
-* **Thematic Blueprints**: Curated blueprints for gaming clans, creator streams, anime cafes, study groups, and tech hubs.
-* **Permission Isolation**: Hardened security matrices that prevent accidental public leaks of private staff rooms and ticket transcripts.
+* **Thematic Blueprints**: Presets for gaming clans, creator streams, anime cafes, study groups, crypto DAOs, and tech hubs.
+* **Permission Isolation Matrix**: Guarantees staff lounges, ticket transcripts, and admin channels never accidentally leak to `@everyone`.
+* **Atomic References**: Automatically resolves dependencies across steps (e.g. referencing newly created role IDs in channel permission overwrites).
 
 ---
 
-## 🔒 Safety & Security Invariants
+## 🔒 Security & Privacy Invariants
 
-1. **Human Confirmation Mandatory**: Mutations require human review. A proposal must be approved via `approve_setup_proposal` before `apply_setup_proposal` will execute.
-2. **Zero Administrator Escalation**: Automated tools create only cosmetic, structural, and support roles. Elevated Administrator permissions remain strictly under manual owner control in Discord.
-3. **Atomic Sequencing**: Resource references chain explicitly (`@stepId.roleId`, `@stepId.channelId`) so dependencies resolve reliably in sequence.
-4. **No Credential Storage**: The MCP server never receives or handles Discord bot tokens, passwords, or personal credentials.
+1. **Human Review Invariant**: No mutations touch Discord until an authorized administrator confirms the proposal in chat.
+2. **Zero Administrator Roles**: Automated setup creates cosmetic, structural, or organizational roles with least-privilege permissions. Elevated admin rights remain strictly under manual owner control in Discord.
+3. **No Credential Exposure**: The MCP server never handles Discord bot tokens, passwords, or personal credentials.
+4. **Tenant Isolation**: OAuth grants bind directly to the user's authenticated identity and explicitly selected Discord servers.
+
+---
+
+## 🌐 Community & Ecosystem
+
+- **Website**: [discortics.com](https://discortics.com)
+- **Documentation**: [discortics.com/support](https://discortics.com/support)
+- **Discord Bot Invite**: [discortics.com/invite](https://discortics.com/invite)
+- **Registry Identifier**: `io.github.discortics/discortics`
 
 ---
 
