@@ -7,7 +7,7 @@
     "url": "https://github.com/Discortics/discortics-mcp",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "0.2.0",
   "remotes": [
     {
       "type": "streamable-http",

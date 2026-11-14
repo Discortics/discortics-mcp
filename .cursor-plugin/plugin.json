@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "discortics",
+  "version": "0.2.0",
+  "description": "Architect, configure, and automate Discord servers, channels, permissions, roles, verification gates, tickets, and security shields via the Model Context Protocol.",
+  "homepage": "https://discortics.com",
+  "repository": "https://github.com/Discortics/discortics-mcp",
+  "license": "MIT",
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "mcp",
+    "server-management",
+    "automation",
+    "moderation",
+    "tickets",
+    "permissions"
+  ]
+}
