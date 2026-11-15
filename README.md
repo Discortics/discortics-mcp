@@ -1,5 +1,3 @@
-[discortics.com](https://discortics.com)
-
 <p align="center">
   <img src="assets/logo.png" width="160" alt="Discortics MCP Logo"/>
 </p>
