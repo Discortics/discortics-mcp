@@ -16,7 +16,7 @@ You accomplish this not through tedious manual dashboard clicks, but through the
 When orchestrating server setups via Discortics MCP, you must strictly uphold the following rules:
 
 ### Rule 1: Complete, Bounded Proposals
-* Put the complete request into one `propose_setup` call when it fits the 12-step limit. For larger requests, explain the full plan and use coherent batches of at most 12 steps, each with fresh confirmation; reuse actual completed resource IDs across batches.
+* Put the complete request into one `propose_setup` call when it fits the 25-step limit. For larger requests, explain the full plan and use coherent batches of at most 25 steps, each with fresh confirmation; reuse actual completed resource IDs across batches.
 * Sequence steps in strict dependency order:
   1. Prerequisite cosmetic roles (`role.create`)
   2. Categories (`category.create`)
@@ -43,6 +43,9 @@ When a subsequent step depends on a resource created earlier in the same proposa
 * Any staff, moderation, administration, or private review channel MUST include `privateRoleIds`.
 * If a channel is created without `privateRoleIds`, it inherits category permissions or defaults to public viewable by `@everyone`.
 * Always pass the intended staff role references, e.g.: `privateRoleIds: ["@modRole.roleId", "@adminRole.roleId"]`.
+* For `channel.update` with `syncPermissions: true`, explain that the channel-specific overwrites will be replaced by the category's reviewed overwrites. The proposal pins the category permission fingerprint and freezes those overwrites in the preview; changed category permissions require a fresh proposal and confirmation.
+* Put all related permission edits in one `permissions.update` step. Changes execute in the supplied order, so grant the bot and staff access before revoking `@everyone` access. Every intermediate state must preserve the actor's and bot's required access; the batch is rejected before effects if its order would temporarily lock either out. A permission batch is a sequence of Discord writes, not an atomic transaction.
+* For `emoji.create`, use a PNG/JPEG/WebP/GIF image up to 256 KiB. For `sticker.create`, use PNG/APNG/GIF up to 512 KiB. Images are downloaded through the guarded fetcher during proposal validation and their exact bytes are pinned before approval; animated formats are enabled for these MCP uploads only.
 
 ### Rule 4: Human-in-the-Loop Review Authority
 * The AI assistant **CANNOT approve or execute mutations autonomously**.
@@ -310,7 +313,7 @@ Discortics MCP exposes full programmatic control over the following modules via 
 
 | Module | Supported Verbs | Purpose / Key Capabilities |
 | :--- | :--- | :--- |
-| **Native Resources** | `role.create`, `category.create`, `channel.create`, `role.update`, `role.delete`, `channel.update`, `channel.delete` | Core Discord hierarchy, colored roles, text/voice/forum/stage channels, and private staff channels. |
+| **Native Resources** | `role.create`, `category.create`, `channel.create`, `role.update`, `role.delete`, `channel.update`, `channel.delete`, `permissions.update`, `role.reorder`, `channel.reorder`, `guild.update`, `emoji.create`, `sticker.create` | Core Discord hierarchy, colored roles, text/voice/forum/stage channels, private staff channels, channel topic/slowmode/NSFW/category moves and category sync, ordering, server settings, emoji and stickers, and member-permission changes (one `permissions.update` step bundles every allow/deny/reset for roles server-wide or per channel, e.g. verified-only channels). |
 | **Settings** | `settings.read`, `settings.update` | Sparse updates of Welcome messages (Embeds & Components V2), Leave messages, Autoroles, Booster perks, Starboard, Suggestions, Confessions, and Vanity roles. |
 | **Verification** | `verification.read`, `verification.update`, `verification.publish` | Automated verification gates with captcha/rules screening and member role assignment. |
 | **Self Roles** | `selfroles.read`, `selfroles.get`, `selfroles.create`, `selfroles.update`, `selfroles.delete`, `selfroles.publish` | Interactive button, select menu, or reaction role assignment panels. |

@@ -1,7 +1,7 @@
 {
   "name": "discortics",
-  "version": "0.2.0",
-  "description": "Architect, configure, theme, and automate Discord servers, channels, permissions, roles, verification gates, tickets, and security shields via the Model Context Protocol.",
+  "version": "1.0.0",
+  "description": "Design, configure, theme, and automate Discord servers, channels, permissions, roles, verification gates, tickets, and security shields via the Model Context Protocol.",
   "author": "Discortics",
   "homepage": "https://discortics.com",
   "mcpServers": {
